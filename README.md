@@ -14,9 +14,9 @@ It matches the syntax of python and replace it with java.
 FOR EXAMPLE: If we create a funtion or class in python like:
 
 <code>
-class HelloWorld():
-    print("Hello")
-HelloWorld()
+class HelloWorld():\n
+    print("Hello")\n
+HelloWorld()\n
 </code>
 
 Then It will correctly produce braces
