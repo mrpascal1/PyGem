@@ -15,6 +15,7 @@ FOR EXAMPLE: If we create a funtion or class in python like:
 
 <code>
 class HelloWorld():
+    
     print("Hello")
 HelloWorld()
 </code>
