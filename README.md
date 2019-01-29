@@ -10,15 +10,15 @@ It matches the syntax of python and replace it with java.
 2.It can also recreate classes
 
 # Bugs
-1.Curly Braces "{}" does not Work Properly
+1.Curly Braces "{ }" does not Work Properly
 FOR EXAMPLE: If we create a funtion or class in python like:
 
 <code>
-class HelloWorld():\n
-    print("Hello")\n
-HelloWorld()\n
-</code>
 
+class HelloWorld():
+    print("Hello")
+HelloWorld()
+</code>
 Then It will correctly produce braces
 But, If we dont call the class
 then it will not close the braces(similar problems with functions)
