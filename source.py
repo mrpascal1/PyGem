@@ -1,3 +1,5 @@
 class HelloWorld():
-    print("Hello")
-HelloWorld()
+    def hello():
+        print("This Works")
+    hello()
+HelloWorld.hello()
