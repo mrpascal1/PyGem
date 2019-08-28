@@ -1,4 +1,4 @@
-# This Scripts Convert Python to Java (source-to-source) using Regular Expression
+# This Script Convert Python to Java (source-to-source) using Regular Expression
 # Author: Ansari Shahid (mrpascal) <ansarishahid640@gmail.com>
 # Just a hobby, Not a big language translater 
 # Highly Exprimental release
@@ -9,6 +9,7 @@ import re
 
 pyFile = open("source.py", "r") #Python File to read
 jFile = open("source.java", "w") #To create Java file
+
 
 #Function to write to the file
 def writeline(string):
@@ -52,18 +53,18 @@ for line in pyFile.readlines():
         # now run regex suite on the line
         # might cause error if none
         
-        line = re.sub("False","false", line)
-        line = re.sub("@property","", line)
-        line = re.sub("self","this", line)
-        line = re.sub("\(this,","(", line)
-        line = re.sub("\(this\)","()", line)
-        line = re.sub("True","true", line)
-        line = re.sub("print\(","System.out.println(", line)
-        line = re.sub("and","&", line)
-        line = re.sub("not","!", line)
-        line = re.sub("#","//", line)
+        line = re.sub(r"False",r"false", line)
+        line = re.sub(r"@property",r"", line)
+        line = re.sub(r"self",r"this", line)
+        line = re.sub(r"\(this,",r"(", line)
+        line = re.sub(r"\(this\)",r"()", line)
+        line = re.sub(r"True",r"true", line)
+        line = re.sub(r"print\(",r"System.out.println(", line)
+        line = re.sub(r"and",r"&", line)
+        line = re.sub(r"not",r"!", line)
+        line = re.sub(r"#",r"//", line)
         #line = re.sub("r'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])():' ", "r'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(){'", line)
-        line = re.sub("def","public void", line)
+        line = re.sub(r"def",r"public void", line)
         
         # handle if elses - add parenthesis
         p = re.compile(r'(?<=if)(.+)(?=\:)')
@@ -73,12 +74,9 @@ for line in pyFile.readlines():
             line = "if " + string + "NOEND"
         
         # finish regex
-        line = re.sub(":",'', line) #since brackets already handled
-        
-        
-        
-        
-        
+        line = re.sub(r":",r" ", line) #since brackets already handled
+       	
+  
         # HANDLE """ xxx """ --> /* xxx */ (can do by hand if need be)
         r = re.compile('(?<=\"\"\")(.+)(?=\"\"\")')
         if r.search(line) != None:
@@ -93,7 +91,7 @@ for line in pyFile.readlines():
             line = line[:len(line)-5]
         
         else:
-            if len(line) != 0 and line[len(line)-1] not in ("(" , "{" , "}"):
+            if len(line) != 0 and line[len(line)-1] not in ("(" , "{", "}"):
                 line = line + ";"
         
         
@@ -105,15 +103,17 @@ for line in pyFile.readlines():
         # remove extra ; in class declarations
         cl = re.compile("class")
         if cl.search(line) != None:
-            line = line[:len(line)-1]
+            if len(line) != 0 and line[len(line)-1] not in ("{"):
+                line = line[:len(line)-1 ] + ""
+            else:
+                line = line[:len(line)-1 ]
         
         # remove extra ; from else part
         el = re.compile("else")
         if el.search(line) != None:
             line = line[:len(line)-1]
 
-        
-        
+                
         # update counts
         previousCount = currentCount
         writeline(line)
